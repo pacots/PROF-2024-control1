@@ -28,4 +28,12 @@ public class Account {
 		return accountNumber;
 	}
 
+	public void setInitialAmount(float initialAmount) {
+        this.initialAmount = initialAmount;
+    }
+
+    public void addTransaction(Transaction transaction) {
+        transactions.add(transaction);
+    }
+
 }

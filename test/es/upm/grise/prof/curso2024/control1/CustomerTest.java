@@ -2,6 +2,9 @@ package es.upm.grise.prof.curso2024.control1;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+import java.beans.Transient;
 
 class CustomerTest {
 
@@ -33,4 +36,30 @@ class CustomerTest {
         String expectedAccountNumber = account2.getAccountNumber();
         assertEquals(expectedAccountNumber, customer.getAccountWithHighestBalance());
     }
+
+    @Test
+    public void testGetAccountWithHighestBalance() throws NoAccountsException {
+        final String ACCOUNT_1_NUMBER = "ACC12345";
+        final String ACCOUNT_2_NUMBER = "ACC67890";
+        final float ACCOUNT_1_BALANCE = 1000.0f;
+        final float ACCOUNT_2_BALANCE = 2500.0f;
+
+        Account account1 = mock(Account.class);
+        Account account2 = mock(Account.class);
+
+        when(account1.getAccountNumber()).thenReturn(ACCOUNT_1_NUMBER);
+        when(account1.getCurrentBalance()).thenReturn(ACCOUNT_1_BALANCE);
+
+        when(account2.getAccountNumber()).thenReturn(ACCOUNT_2_NUMBER);
+        when(account2.getCurrentBalance()).thenReturn(ACCOUNT_2_BALANCE);
+
+        Customer customer = new Customer();
+        customer.addAccount(account1);
+        customer.addAccount(account2);
+
+        String result = customer.getAccountWithHighestBalance();
+
+        assertEquals(ACCOUNT_2_NUMBER, result, "The account with the highest balance was not returned");
+    }
+
 }
