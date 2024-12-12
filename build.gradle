@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'jacoco'
 }
 
 repositories {
@@ -12,19 +13,28 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:5.5.0'
 }
 
-sourceSets {
-    main {
-        java {
-            srcDirs = ['src']
-        }
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = false
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
     }
-    test {
-        java {
-            srcDirs = ['test']
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 1.0
+            }
         }
     }
 }
 
-test {
-    useJUnitPlatform()
-}
+check.dependsOn jacocoTestCoverageVerification
