@@ -20,6 +20,8 @@ class CustomerTest {
     @Test
     void testGetAccountWithHighestBalanceThrowsWhenNoAccounts() {
 
+        customer = new Customer();
+
         assertThrows(NoAccountsException.class, customer::getAccountWithHighestBalance,
             "Expected NoAccountsException in getAccountWithHighestBalance(), but did not happen"
         );
