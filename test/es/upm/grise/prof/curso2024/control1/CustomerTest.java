@@ -11,9 +11,15 @@ class CustomerTest {
     @BeforeEach
     void setUp() {
         customer = new Customer();
-        account1 = new Account("12345", 100.0f);
-        account2 = new Account("67890", 200.0f);
-        account3 = new Account("54321", 50.0f);
+        account1 = new Account();
+        account1.setInitialAmount(100);
+        account1.setAccountNumber("ACC12345");
+        account2 = new Account();
+        account2.setInitialAmount(200);
+        account2.setAccountNumber("ACC67890");
+        account3 = new Account();
+        account3.setInitialAmount(50);
+        account3.setAccountNumber("ACC54321");
 
         customer.addAccount(account1);
         customer.addAccount(account2);
@@ -41,8 +47,8 @@ class CustomerTest {
     public void testGetAccountWithHighestBalance() throws NoAccountsException {
         final String ACCOUNT_1_NUMBER = "ACC12345";
         final String ACCOUNT_2_NUMBER = "ACC67890";
-        final float ACCOUNT_1_BALANCE = 1000.0f;
-        final float ACCOUNT_2_BALANCE = 2500.0f;
+        final float ACCOUNT_1_BALANCE = 1000;
+        final float ACCOUNT_2_BALANCE = 2500;
 
         Account account1 = mock(Account.class);
         Account account2 = mock(Account.class);
